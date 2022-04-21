@@ -17,12 +17,11 @@ public class MarkdownParseTest {
     public void MarkdownParse() throws IOException{
         ArrayList<String> returned;
         ArrayList<String> something = new ArrayList<>();
-        something.add("complete");
-        something.add("and utter");
-        something.add("BULLSHIT");
+        something.add("https://something.com");
+        something.add("some-thing.html");
         Path fileName = Path.of("test-file.md");
         String content = Files.readString(fileName);
         returned = MarkdownParse.getLinks(content);
-        assertEquals(returned, MarkdownParse.getLinks(content));
+        assertEquals(returned, something);
     }
 }
