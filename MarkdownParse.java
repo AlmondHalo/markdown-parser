@@ -19,10 +19,17 @@ public class MarkdownParse {
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket); //closeBracket
             int closeParen = markdown.indexOf(")", openParen);
-            if ((markdown.contains("!") && (openBracket-1 != exclamationIndex)) || !markdown.contains("!")) {
-                toReturn.add(markdown.substring(openParen + 1, closeParen));
+            if (closeBracket + 1 == openParen) {
+                if ((markdown.contains("!") && (openBracket-1 != exclamationIndex))
+                     || !markdown.contains("!")) {
+                    toReturn.add(markdown.substring(openParen + 1, closeParen));
+                }
             }
             currentIndex = closeParen + 1;
+            if (!markdown.substring(closeParen).contains("[") || !markdown.substring(closeParen).contains("]")
+                || !markdown.substring(closeParen).contains("(") || !markdown.substring(closeParen).contains(")")) {
+                    break;
+                }
         }
         return toReturn;
     }
