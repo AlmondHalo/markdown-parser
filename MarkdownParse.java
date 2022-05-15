@@ -31,6 +31,7 @@ public class MarkdownParse {
                     break;
                 }
         }
+
         return toReturn;
     }
 
