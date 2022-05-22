@@ -2,6 +2,8 @@
 import static org.junit.Assert.*;
 import org.junit.*;
 
+import java.beans.Transient;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,5 +25,40 @@ public class MarkdownParseTest {
         String content = Files.readString(fileName);
         returned = MarkdownParse.getLinks(content);
         assertEquals(returned, something);
+    }
+
+    @Test
+    public void Snip1() throws IOException{
+        String contents = Files.readString(Path.of("testSnip1.md"));
+        // Path fileName = Path.of("testSnip1.md");
+        // String content = Files.readString(fileName);
+        ArrayList<String> links = MarkdownParse.getLinks(contents);
+        ArrayList<String> correctOutput = new ArrayList<>();
+        correctOutput.add("`google.com");
+        correctOutput.add("google.com");
+        correctOutput.add("ucsd.edu");
+        assertEquals(correctOutput, links);
+    }
+
+    @Test
+    public void Snip2() throws IOException{
+        Path fileName = Path.of("testSnip2.md");
+        String content = Files.readString(fileName);
+        ArrayList<String> links = MarkdownParse.getLinks(content);
+        ArrayList<String> correctOutput = new ArrayList<>();
+        correctOutput.add("a.com");
+        correctOutput.add("a.com(())");
+        correctOutput.add("example.com");
+        assertEquals(correctOutput, links);
+    }
+
+    @Test
+    public void Snip3() throws IOException{
+        Path fileName = Path.of("testSnip3.md");
+        String content = Files.readString(fileName);
+        ArrayList<String> links = MarkdownParse.getLinks(content);
+        ArrayList<String> correctOutput = new ArrayList<>();
+        correctOutput.add("https://sites.google.com/eng.ucsd.edu/cse-15l-spring-2022/schedule");
+        assertEquals(correctOutput, links);
     }
 }
